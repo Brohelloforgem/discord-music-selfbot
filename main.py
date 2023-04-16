@@ -3,7 +3,10 @@ import json
 from folder import commands
 from folder import error_handle
 
-client = commands.Bot(command_prefix='$', selfbot=True)
+with open("config.json", "r") as f:
+    config = json.load(f)
+
+client = commands.Bot(command_prefix=config["bot-prefix"])
 queue_list = []
 
 @client.command()
@@ -37,9 +40,6 @@ async def queue(ctx):
 @client.event
 async def on_command_error(ctx, error):
     await error_handle.erroring(error=error, ctx=ctx)
-
-with open("config.json", "r") as f:
-    config = json.load(f)
 
 token = config['bot-token']
 client.run(token)
