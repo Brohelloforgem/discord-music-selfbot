@@ -1,9 +1,11 @@
 import discord
 import asyncio
 import ffmpeg
-import playing
+from folder import playing
 
-async def skip(ctx, queue_list, client):
+queue_list = []
+
+async def skip(ctx, client):
     voice_client = ctx.guild.voice_client
     if voice_client.is_playing():
         queue_list.pop(0)
@@ -33,7 +35,7 @@ async def unpause(ctx):
     else:
         await ctx.send('_Music is already playing!_')
 
-async def clear(ctx, queue_list):
+async def clear(ctx):
     voice_client = ctx.guild.voice_client
     if voice_client:
         voice_client.stop()
@@ -93,7 +95,7 @@ async def play(ctx, arg, client):
     queue_list.append(source)
 
     if not voice_client.is_playing():
-        voice_client.play(queue_list[0], after=lambda e: asyncio.run_coroutine_threadsafe(play_next(ctx.guild), client.loop))
+        voice_client.play(queue_list[0], after=lambda e: asyncio.run_coroutine_threadsafe(play_next(guild=ctx.guild, client=client), client.loop))
         await ctx.send(f"**Now playing:** {source.title}")
     else:
         await ctx.send(f"**Added to queue:** {source.title}")
