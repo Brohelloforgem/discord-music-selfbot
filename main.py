@@ -1,4 +1,4 @@
-from discord.ext import commands
+from discord.ext import commands as discord
 import json
 from folder import commands
 from folder import error_handle
@@ -6,8 +6,7 @@ from folder import error_handle
 with open("config.json", "r") as f:
     config = json.load(f)
 
-client = commands.Bot(command_prefix=config["bot-prefix"])
-queue_list = []
+client = discord.Bot(command_prefix=config["bot-prefix"])
 
 @client.command()
 async def play(ctx, *, arg):
@@ -19,11 +18,11 @@ async def pause(ctx):
 
 @client.command()
 async def skip(ctx):
-    await commands.skip(ctx=ctx, queue_list=queue_list, client=client)
+    await commands.skip(ctx=ctx, client=client)
 
 @client.command()
 async def clear(ctx):
-    await commands.clear(ctx=ctx, queue_list=queue_list)
+    await commands.clear(ctx=ctx)
 
 @client.command()
 async def unpause(ctx):
