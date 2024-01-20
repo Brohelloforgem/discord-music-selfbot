@@ -1,0 +1,4 @@
+discord.py-self
+ffmpeg
+asyncio
+yt_dlp
