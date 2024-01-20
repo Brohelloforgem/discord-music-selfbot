@@ -1,4 +1,4 @@
 {
-  "bot-token": "token",
-  "bot-prefix": "prefix"
+  "bot-token": os.getenv("TOKEN"),
+  "bot-prefix": "."
 }
